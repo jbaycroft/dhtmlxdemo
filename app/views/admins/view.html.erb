@@ -1,0 +1,32 @@
+<html>
+    <head>
+         <%= javascript_include_tag 'dhtmlx/dhtmlxcommon.js' %>
+        <%= javascript_include_tag 'dhtmlx/dhtmlxgrid.js' %>
+        <%= javascript_include_tag 'dhtmlx/dhtmlxgridcell.js' %>
+        <%= javascript_include_tag 'dhtmlx/dhtmlxdataprocessor.js' %>
+        <%= javascript_include_tag 'dhtmlx/dhtmlxgrid_filter.js' %>
+
+        <%= stylesheet_link_tag 'dhtmlx/dhtmlxgrid.css' %>
+        <%= stylesheet_link_tag 'dhtmlx/skins/dhtmlxgrid_dhx_skyblue.css' %>
+    </head>
+    <body>
+        <div id="grid_here" style="width:600px; height:400px;">
+        </div>
+        <script type="text/javascript" charset="utf-8">
+            var grid = new dhtmlXGridObject("grid_here");
+            grid.setImagePath("/images/dhtmlx/imgs/");
+            grid.setHeader("First name, Last name, Phone");
+            grid.attachHeader("#text_filter,#text_filter,#text_filter"); //added !
+            grid.setColSorting("str,str,str");  //added !
+            grid.setInitWidths("100,100,*");
+            grid.setSkin("dhx_skyblue");
+            grid.init();
+            grid.load("/admin/data.xml");
+
+            dp = new dataProcessor("/admin/dbaction.xml");
+            dp.init(grid);
+        </script>
+        <input type="button" value="Add" onclick="grid.addRow(grid.uid(),'new user')">
+        <input type="button" value="Delete" onclick="grid.deleteSelectedRows()">
+    </body>
+</html>
